@@ -1,0 +1,24 @@
+- greeting:
+    text_size: xl
+    text: Bonjour
+
+- resources:
+    label: Serveur
+    cpu: true
+    memory: true
+    disk: /
+
+- resources:
+    label: Freebox 1
+    disk: /mnt/freebox_1
+
+- resources:
+    label: Freebox 2
+    disk: /mnt/freebox_2
+
+- datetime:
+    locale: fr
+    text_size: md
+    format:
+      dateStyle: full
+      timeStyle: short

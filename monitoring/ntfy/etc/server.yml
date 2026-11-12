@@ -1,0 +1,10 @@
+# ntfy : notifications push du serveur toga
+base-url: "http://ntfy.home"
+listen-http: ":80"
+behind-proxy: true
+cache-file: "/var/cache/ntfy/cache.db"
+cache-duration: "72h"
+attachment-cache-dir: "/var/cache/ntfy/attachments"
+# Notifications instantanées sur iPhone : ntfy.sh ne reçoit qu un identifiant
+# chiffré (SHA-256 du sujet), jamais le contenu des messages.
+upstream-base-url: "https://ntfy.sh"

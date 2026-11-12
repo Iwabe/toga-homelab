@@ -1,0 +1,2 @@
+30 4 * * * $HOME/bin/homeserver-backup.sh
+*/5 * * * * /home/admin/monitoring/check-disques.sh

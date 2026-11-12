@@ -1,0 +1,139 @@
+services:
+
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - /home/admin/jellyfin/config/jackett:/config
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - /home/admin/jellyfin/config/sonarr:/config
+      - /home/admin/partage_films:/data
+      - /media/freebox_1:/media/freebox_1
+      - /media/freebox_2:/media/freebox_2
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    user: 1000:1000
+    ports:
+      - 8090:80
+    volumes:
+      # Accès à tes 3 sources de stockage
+      - /home/admin/partage_films:/srv/interne
+      - /media/freebox_1:/srv/freebox_1
+      - /media/freebox_2:/srv/freebox_2
+      # Fichiers de configuration
+      - /home/admin/jellyfin/config/filebrowser/filebrowser.db:/filebrowser.db
+    command: ["--address", "0.0.0.0", "--port", "80", "--database", "/filebrowser.db", "--root", "/srv"]
+    restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - WEBUI_PORT=8080
+    dns:
+      - 1.1.1.1
+    volumes:
+      - /home/admin/jellyfin/config/qbittorrent:/config
+      - /home/admin/partage_films:/data
+      - /media/freebox_1:/media/freebox_1
+      - /media/freebox_2:/media/freebox_2
+    ports:
+      - 8085:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: 1000:1000
+    network_mode: host
+    devices:
+      - /dev/dri:/dev/dri
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    volumes:
+      - /home/admin/jellyfin/config:/config
+      - /home/admin/jellyfin/cache:/cache
+      - /home/admin/partage_films:/data
+      - /media/freebox_1:/media/freebox_1
+      - /media/freebox_2:/media/freebox_2
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - /home/admin/jellyfin/config/radarr:/config
+      - /home/admin/partage_films:/data
+      - /media/freebox_1:/media/freebox_1
+      - /media/freebox_2:/media/freebox_2
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /home/admin/jellyfin/config/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  flaresolverr:
+    # arrêté le 2026-11-10 (plus aucun indexeur ne l'utilise) ; pour le relancer : docker compose --profile flaresolverr up -d
+    profiles: ["flaresolverr"]
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+
+
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
+    init: true
+    environment:
+      - TZ=Europe/Paris
+      - LOG_LEVEL=info
+    ports:
+      - 5055:5055
+    volumes:
+      - /home/admin/jellyfin/config/seerr:/app/config
+    restart: unless-stopped

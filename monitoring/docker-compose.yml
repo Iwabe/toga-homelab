@@ -1,0 +1,26 @@
+services:
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: ntfy
+    command: serve
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - ./ntfy/cache:/var/cache/ntfy
+      - ./ntfy/etc:/etc/ntfy
+    ports:
+      - "2586:80"
+    mem_limit: 128m
+    restart: unless-stopped
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: uptime-kuma
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - ./kuma:/app/data
+    ports:
+      - "3001:3001"
+    mem_limit: 384m
+    restart: unless-stopped

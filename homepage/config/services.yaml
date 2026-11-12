@@ -1,0 +1,114 @@
+# Les clés et mots de passe sont dans ~/homepage/.env (HOMEPAGE_VAR_*)
+
+- Regarder:
+    - Jellyfin:
+        icon: jellyfin.svg
+        href: http://jellyfin.home/
+        description: Films et séries
+        siteMonitor: http://192.168.1.10:8096
+        widget:
+          type: jellyfin
+          version: 2
+          url: http://192.168.1.10:8096
+          key: "{{HOMEPAGE_VAR_JELLYFIN_KEY}}"
+          enableBlocks: true
+          enableNowPlaying: true
+          fields: ["movies", "series", "episodes"]
+
+    - Seerr:
+        icon: mdi-movie-search-#2a2e20
+        href: http://seerr.home/
+        description: Demander un film ou une série
+        siteMonitor: http://192.168.1.10:5055
+        widget:
+          type: jellyseerr
+          url: http://192.168.1.10:5055
+          key: "{{HOMEPAGE_VAR_SEERR_KEY}}"
+          fields: ["pending", "approved", "available"]
+
+- "L'Atelier":
+    - Radarr:
+        icon: radarr.svg
+        href: http://radarr.home/
+        description: Films
+        siteMonitor: http://192.168.1.10:7878
+        widget:
+          type: radarr
+          url: http://192.168.1.10:7878
+          key: "{{HOMEPAGE_VAR_RADARR_KEY}}"
+          fields: ["wanted", "queued", "movies"]
+
+    - Sonarr:
+        icon: sonarr.svg
+        href: http://sonarr.home/
+        description: Séries
+        siteMonitor: http://192.168.1.10:8989
+        widget:
+          type: sonarr
+          url: http://192.168.1.10:8989
+          key: "{{HOMEPAGE_VAR_SONARR_KEY}}"
+          fields: ["wanted", "queued", "series"]
+
+    - Prowlarr:
+        icon: prowlarr.svg
+        href: http://prowlarr.home/
+        description: Indexeurs
+        siteMonitor: http://192.168.1.10:9696
+        widget:
+          type: prowlarr
+          url: http://192.168.1.10:9696
+          key: "{{HOMEPAGE_VAR_PROWLARR_KEY}}"
+          fields: ["numberOfGrabs", "numberOfFailGrabs"]
+
+    - qBittorrent:
+        icon: qbittorrent.svg
+        href: http://qbittorrent.home/
+        description: Téléchargements
+        siteMonitor: http://192.168.1.10:8085
+        widget:
+          type: qbittorrent
+          url: http://192.168.1.10:8085
+          username: "{{HOMEPAGE_VAR_QBIT_USER}}"
+          password: "{{HOMEPAGE_VAR_QBIT_PASS}}"
+          fields: ["download", "upload"]
+
+- Salle des machines:
+    # Pas de widget tant qu'il n'y a pas de mot de passe d'application Pi-hole
+    - Pi-hole:
+        icon: pi-hole.svg
+        href: http://pihole.home/admin
+        description: Bloqueur de pub et DNS
+        siteMonitor: http://192.168.1.10:8080/admin/
+
+    - Nginx Proxy Manager:
+        icon: nginx-proxy-manager.svg
+        href: http://192.168.1.10:81/
+        description: Adresses .home
+        siteMonitor: http://192.168.1.10:81
+        widget:
+          type: npm
+          url: http://192.168.1.10:81
+          username: "{{HOMEPAGE_VAR_NPM_USER}}"
+          password: "{{HOMEPAGE_VAR_NPM_PASS}}"
+
+    - Fichiers:
+        icon: filebrowser.svg
+        href: http://cloud.home/
+        description: Gestionnaire de fichiers
+        siteMonitor: http://192.168.1.10:8090
+
+    - Uptime Kuma:
+        icon: uptime-kuma.svg
+        href: http://kuma.home/
+        description: Surveillance des services
+        siteMonitor: http://192.168.1.10:3001
+        widget:
+          type: uptimekuma
+          url: http://192.168.1.10:3001
+          slug: toga
+
+    - ntfy:
+        icon: ntfy.svg
+        href: http://ntfy.home/toga
+        description: Alertes sur le téléphone
+        siteMonitor: http://192.168.1.10:2586/v1/health

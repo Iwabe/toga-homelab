@@ -1,0 +1,25 @@
+title: Maison
+favicon: /images/toga-icon.png
+language: fr
+theme: dark
+color: stone
+
+# Les hôtes autorisés sont dans HOMEPAGE_ALLOWED_HOSTS (docker-compose.yml)
+
+headerStyle: clean
+statusStyle: dot
+hideVersion: true
+useEqualHeights: true
+target: _blank
+
+# Le style (fond, cartes, couleurs) est dans custom.css
+layout:
+  Regarder:
+    style: row
+    columns: 2
+  "L'Atelier":
+    style: row
+    columns: 4
+  Salle des machines:
+    style: row
+    columns: 3

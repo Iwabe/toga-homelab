@@ -1,0 +1,17 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - 3000:3000
+    volumes:
+      - /home/admin/homepage/config:/app/config # Dossier où on va mettre la config
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Pour voir l'état des conteneurs
+      - /home/admin/homepage/config/images:/app/public/images
+      - /media/freebox_1:/mnt/freebox_1:ro # espace disque Freebox
+      - /media/freebox_2:/mnt/freebox_2:ro
+    environment:
+      # On autorise l'IP et ton futur nom de domaine
+      - HOMEPAGE_ALLOWED_HOSTS=192.168.1.10:3000,localhost:3000,127.0.0.1:3000,100.64.0.10:3000,home.home,home.lan,home.local,home.oui,toga:3000,toga.tailnet-xxxx.ts.net:3000

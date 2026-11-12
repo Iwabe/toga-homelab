@@ -1,0 +1,2 @@
+//192.168.1.254/Disque\0401 /media/freebox_1 cifs _netdev,nofail,guest,vers=3.0,uid=1000,gid=1000,file_mode=0775,dir_mode=0775,x-systemd.mount-timeout=60 0 0
+//192.168.1.254/Disque\0402 /media/freebox_2 cifs _netdev,nofail,guest,vers=3.0,uid=1000,gid=1000,file_mode=0775,dir_mode=0775,x-systemd.mount-timeout=60 0 0

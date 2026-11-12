@@ -1,0 +1,17 @@
+# Secrets : jamais dans le dépôt
+.env
+*.env
+!*.env.example
+app_token
+**/telegram.env
+**/disques.env
+# Données des applications
+**/data/
+**/letsencrypt/
+**/config/*/
+monitoring/kuma/
+monitoring/ntfy/cache/
+*.db
+*.sqlite
+*.db-wal
+*.db-shm
